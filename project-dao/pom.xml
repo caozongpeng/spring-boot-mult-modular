@@ -11,6 +11,14 @@
 
     <artifactId>project-dao</artifactId>
 
+    <dependencies>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>

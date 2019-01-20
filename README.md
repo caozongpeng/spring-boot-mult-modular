@@ -1,5 +1,5 @@
 ## 项目介绍
-SpringBoot API Mult Modular 是一个基于SpringBoot & Mybatis构建的一个多模块种子项目，用于快速构建中小型API、RESTful API项目。根据不同的代码进行分层，可以很好的管理代码和维护。
+SpringBoot API Mult Modular 是一个基于SpringBoot构建的一个多模块，可以在此基础上搭建前后台管理系统。根据不同的代码进行分层，可以很好的管理代码和维护。
 
 #### 具体模块
 该项目主要分为五大模块分别为
@@ -94,7 +94,7 @@ project-service 依赖于 `project-dao`模块。
 ###### 说明
 因为这是一个web工程，所以需要增加`web starter` 的依赖，web starter引入了构建一个web工程的jar包。
 
-* **给`project-admin`工程添加spring依赖**，同`project-front`一样。
+* **给`project-admin`工程添加spring依赖，同`project-front`一样**。
 * **给`project-service`工程添加`spring-context`和`project-dao`工程的依赖包**。
 
 修改`project-service/pom.xml`文件，如下
@@ -133,3 +133,108 @@ project-service 依赖于 `project-dao`模块。
 ###### 说明
 这里的`spring-context`包的`scope`为`provided`，因为这个包在front的`springboot web starter`中已经被引入了。
 我们之所以需要引入这个包，是因为我们需要使用@Service、@Autowired等Spring提供的注解。如果你还需要用到别的第三方包，也可以直接引入。
+
+#### 增加启动类
+这里需要新建两个启动类一个是前台一个是后台，分别是 `AdminApplication.java`、`FrontApplication`，放在包`com.wip.kyriecao`下。我们这里新建`Controller`类`IndexAdminController`、`IndexFrontApplication`放在`com.wip.kyriecao.controller`中。
+* AdminApplication.java内容如下
+```java
+/**
+ * 后台项目启动类
+ * @author KyrieCao
+ * @date 2019/1/20 15:23
+ */
+@SpringBootApplication
+public class AdminApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(AdminApplication.class);
+    }
+}
+```
+* FrontApplication.java内容如下
+```java
+/**
+ * 前台项目启动类
+ * @author KyrieCao
+ * @date 2019/1/20 15:25
+ */
+@SpringBootApplication
+public class FrontApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(FrontApplication.class);
+    }
+}
+```
+* IndexAdminController内容如下
+```java
+/**
+ * 后台首页控制器
+ * @author KyrieCao
+ * @date 2019/1/20 21:33
+ */
+@RestController
+public class IndexAdminController {
+
+    @Autowired
+    private IndexService indexService;
+
+    @RequestMapping("/admin")
+    public String index() {
+        return "Welcome to Admin, Dao名称为：" + indexService.getDaoName();
+    }
+
+}
+```
+* IndexFrontController内容如下
+```java
+/**
+ * 前台首页控制器
+ * @author KyrieCao
+ * @date 2019/1/20 21:35
+ */
+@RestController
+public class IndexFrontController {
+
+    @Autowired
+    private IndexService indexService;
+
+    @RequestMapping("/index")
+    public String index() {
+        return "Welcome to Front, Dao名称为：" + indexService.getDaoName();
+    }
+}
+```
+省略service和dao的代码，就只是返回一个字符串，具体可以查看源码，最后会附上源码。
+
+到这里，SpringBoot的Maven多模块项目搭建完了。启动分别运行`AdminApplication.java`、`FrontApplication.java`的main方法即可。
+
+
+说一下`project-core`这个模块主要是封装一些这个项目核心通用的东西，根据实际情况写。
+
+#### 总结
+* 搭建一个Maven多模块工程
+* 在`parent`中引入`springboot parent` 来继承`springboot`的包管理
+* web工程中引入`springboot`提供的`web starter`
+* 在非web工程引入自己需要的包，如果包已经在front中引入，那么修饰scope为provided。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
