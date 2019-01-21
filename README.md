@@ -4,6 +4,9 @@ SpringBoot Mult Modular 是一个基于SpringBoot构建的一个多模块，可�
 如果觉得此项目可以帮你，请帮忙`Star`
 
 #### 具体模块
+
+![modular](https://github.com/caozongpeng/github-static/blob/master/spring-boot-mult-modular/modular.png)
+
 该项目主要分为五大模块分别为
 * **project-admin** 项目后台模块
 * **project-front** 项目前台模块
@@ -208,7 +211,7 @@ public class IndexFrontController {
 省略service和dao的代码，就只是返回一个字符串，具体可以查看源码，最后会附上源码。
 
 到这里，SpringBoot的Maven多模块项目搭建完了。启动分别运行`AdminApplication.java`、`FrontApplication.java`的main方法即可。
-
+![success](https://github.com/caozongpeng/github-static/blob/master/spring-boot-mult-modular/success.png)
 
 说一下`project-core`这个模块主要是封装一些这个项目核心通用的东西，根据实际情况写。
 
